@@ -1,6 +1,6 @@
 # report file
-improved-guacamole/raw_data/
-improved-guacamole/report/
+guacamoleETL/raw_data/
+guacamoleETL/report/
 
 # git
 .git
