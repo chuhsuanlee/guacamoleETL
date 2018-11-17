@@ -1,0 +1,10 @@
+# report file
+improved-guacamole/raw_data/
+improved-guacamole/report/
+
+# git
+.git
+.gitignore
+
+# python
+*.py[cod]
