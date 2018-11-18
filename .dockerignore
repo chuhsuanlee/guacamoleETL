@@ -1,7 +1,3 @@
-# report file
-guacamoleETL/raw_data/
-guacamoleETL/report/
-
 # git
 .git
 .gitignore

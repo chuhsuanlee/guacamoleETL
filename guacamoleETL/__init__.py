@@ -15,7 +15,7 @@ for idx, word in enumerate(units):
 
 def txt_data_to_cleaned_list(txt_file):
     input_file = open(txt_file, 'r')
-    temp_file = open('./guacamoleETL/raw_data/temp.csv', 'w', newline='')
+    temp_file = open('temp.csv', 'w', newline='')
     reader = csv.reader(input_file, delimiter=';')
     writer = csv.writer(temp_file)
 
@@ -25,7 +25,7 @@ def txt_data_to_cleaned_list(txt_file):
     input_file.close()
     temp_file.close()
 
-    stream = open('./guacamoleETL/raw_data/temp.csv', 'r')
+    stream = open('temp.csv', 'r')
     data_list = list(csv.DictReader(stream))
     stream.close()
 
@@ -86,6 +86,6 @@ def transform(path):
 
 def load(path):
     transformed_data = transform(path)
-    with open('./guacamoleETL/raw_data/output.csv', 'w', newline='') as f:
+    with open('output.csv', 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(transformed_data)

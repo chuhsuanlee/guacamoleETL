@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="guacamoleETL",
-    version="0.2.0",
+    version="0.2.1",
     author="Chu-Hsuan Lee",
     author_email="joseph.chuhsuanlee@gmail.com",
     description="ETL package for AUTO1 challenge",

@@ -6,12 +6,9 @@ IMAGE_VERSION := 0.1.0
 IMAGE_REPO := $(IMAGE_NAMESPACE)/$(IMAGE_NAME):$(IMAGE_VERSION)
 
 WORKDIR := $(shell pwd)
-DATA_PATH := $(WORKDIR)/guacamoleETL/raw_data
-REPORT_PATH := $(WORKDIR)/guacamoleETL/report
 FLAG := \
 	-v /etc/localtime:/etc/localtime \
-	-v $(DATA_PATH):/usr/src/guacamoleETL/raw_data \
-	-v $(REPORT_PATH):/usr/src/guacamoleETL/report
+	-v $(WORKDIR):/usr/src
 
 # Followings are the Make commands that can be used.
 
