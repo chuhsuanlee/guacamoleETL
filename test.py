@@ -3,6 +3,6 @@ import guacamoleETL
 
 
 if __name__ == "__main__":
-    guacamoleETL.load()
-    result = guacamoleETL.transform()
+    guacamoleETL.load('./guacamoleETL/raw_data/Challenge_me.txt')
+    result = guacamoleETL.transform('./guacamoleETL/raw_data/Challenge_me.txt')
     print (result)
