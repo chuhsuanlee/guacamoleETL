@@ -2,10 +2,18 @@
 import csv
 
 name = "guacamoleETL"
-columns = ['engine-location', 'num-of-cylinders', 'engine-size', ]
+specified_columns = ['engine-location', 'num-of-cylinders', 'engine-size',
+                     'weight', 'horsepower', 'aspiration', 'price', 'make']
+output_columns = ['engine-location_front', 'engine-location_rear', 'num-of-cylinders',
+                  'engine-size', 'weight', 'horsepower', 'aspiration_turbo', 'price', 'make']
+
+units = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+numwords = {}
+for idx, word in enumerate(units):
+    numwords[word] = idx
 
 
-def txt_datareader(txt_file):
+def txt_data_to_cleaned_list(txt_file):
     input_file = open(txt_file, 'r')
     temp_file = open('./guacamoleETL/raw_data/temp.csv', 'w', newline='')
     reader = csv.reader(input_file, delimiter=';')
@@ -21,16 +29,60 @@ def txt_datareader(txt_file):
     data_list = list(csv.DictReader(stream))
     stream.close()
 
-    clean_date = []
-    # for each_record in data_list:
+    clean_up_data = []
+    for this_record in data_list:
+        is_valid = 1
 
-    return data_list
+        for column in specified_columns:
+            if this_record[column] == '-':
+                is_valid = 0
+                continue
+
+        if is_valid == 1:
+            clean_up_data.append(this_record)
+
+    return clean_up_data
+
+
+def transform(path):
+    read_data = txt_data_to_cleaned_list(path)
+    transformed_data = []
+    transformed_data.append(output_columns)
+
+    for this_record in read_data:
+        transformed_row = []
+
+        if this_record['engine-location'] == 'front':
+            transformed_row.append(1)
+        else:
+            transformed_row.append(0)
+
+        if this_record['engine-location'] == 'rear':
+            transformed_row.append(1)
+        else:
+            transformed_row.append(0)
+
+        transformed_row.append(numwords[this_record['num-of-cylinders']])
+
+        transformed_row.append(int(this_record['engine-size']))
+
+        transformed_row.append(int(this_record['weight']))
+
+        transformed_row.append(float(this_record['horsepower'].replace(',', '.')))
+
+        if this_record['aspiration'] == 'turbo':
+            transformed_row.append(1)
+        else:
+            transformed_row.append(0)
+
+        transformed_row.append(float(this_record['price'])/100)
+
+        transformed_row.append(this_record['make'])
+
+        transformed_data.append(transformed_row)
+
+    return transformed_data
 
 
 def load(path):
-    read_data = txt_datareader(path)
-    print(read_data)
-
-
-def transform():
-    return
+    transformed_data = transform(path)
