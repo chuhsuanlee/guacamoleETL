@@ -86,3 +86,6 @@ def transform(path):
 
 def load(path):
     transformed_data = transform(path)
+    with open('./guacamoleETL/raw_data/output.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerows(transformed_data)
