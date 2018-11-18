@@ -10,8 +10,8 @@ DATA_PATH := $(WORKDIR)/guacamoleETL/raw_data
 REPORT_PATH := $(WORKDIR)/guacamoleETL/report
 FLAG := \
 	-v /etc/localtime:/etc/localtime \
-	-v $(DATA_PATH):/usr/src/app/raw_data \
-	-v $(REPORT_PATH):/usr/src/app/report
+	-v $(DATA_PATH):/usr/src/guacamoleETL/raw_data \
+	-v $(REPORT_PATH):/usr/src/guacamoleETL/report
 
 # Followings are the Make commands that can be used.
 
