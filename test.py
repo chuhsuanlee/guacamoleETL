@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import guacamoleETL
 
+dataFile = 'Challenge_me.txt'
 
 if __name__ == "__main__":
-    guacamoleETL.load('Challenge_me.txt')
-    result = guacamoleETL.transform('Challenge_me.txt')
+    guacamoleETL.load(dataFile)
+    result = guacamoleETL.transform(dataFile)
     print(result)
