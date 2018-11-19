@@ -13,38 +13,8 @@ for idx, word in enumerate(units):
     numwords[word] = idx
 
 
-def txt_data_to_cleaned_list(txt_file):
-    input_file = open(txt_file, 'r')
-    temp_file = open('temp.csv', 'w', newline='')
-    reader = csv.reader(input_file, delimiter=';')
-    writer = csv.writer(temp_file)
-
-    for row in reader:
-        writer.writerows([[x.strip() for x in row]])
-
-    input_file.close()
-    temp_file.close()
-
-    stream = open('temp.csv', 'r')
-    data_list = list(csv.DictReader(stream))
-    stream.close()
-
-    clean_up_data = []
-    for this_record in data_list:
-        is_valid = 1
-
-        for column in specified_columns:
-            if this_record[column] == '-':
-                is_valid = 0
-                continue
-
-        if is_valid == 1:
-            clean_up_data.append(this_record)
-
-    return clean_up_data
-
-
 def transform(path):
+    """Transform the data through given specifications into a matrix."""
     read_data = txt_data_to_cleaned_list(path)
     transformed_data = []
     transformed_data.append(output_columns)
@@ -85,7 +55,49 @@ def transform(path):
 
 
 def load(path):
+    """Load the data as a .csv file."""
     transformed_data = transform(path)
     with open('output.csv', 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(transformed_data)
+
+
+def txt_data_to_cleaned_list(txt_file):
+    """Data pre-process."""
+    extract_data(txt_file)
+    return clean_up()
+
+
+def extract_data(txt_file):
+    """Extract data from a .txt file to a temporary .csv file."""
+    input_file = open(txt_file, 'r')
+    temp_file = open('temp.csv', 'w', newline='')
+    reader = csv.reader(input_file, delimiter=';')
+    writer = csv.writer(temp_file)
+
+    for row in reader:
+        writer.writerows([[x.strip() for x in row]])
+
+    input_file.close()
+    temp_file.close()
+
+
+def clean_up():
+    """Clean up the data with invalid information."""
+    stream = open('temp.csv', 'r')
+    data_list = list(csv.DictReader(stream))
+    stream.close()
+
+    clean_up_data = []
+    for this_record in data_list:
+        is_valid = 1
+
+        for column in specified_columns:
+            if this_record[column] == '-':
+                is_valid = 0
+                continue
+
+        if is_valid == 1:
+            clean_up_data.append(this_record)
+
+    return clean_up_data
