@@ -55,7 +55,7 @@ def transform(path):
 
 
 def load(path):
-    """Load the data as a .csv file."""
+    """Load the data into a .csv file."""
     transformed_data = transform(path)
     with open('output.csv', 'w', newline='') as f:
         writer = csv.writer(f)
@@ -76,6 +76,7 @@ def extract_data(txt_file):
     writer = csv.writer(temp_file)
 
     for row in reader:
+        # pre-clean the data with leading or trailing whitespace
         writer.writerows([[x.strip() for x in row]])
 
     input_file.close()
